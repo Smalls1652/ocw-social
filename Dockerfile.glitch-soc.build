@@ -63,7 +63,7 @@ RUN adduser --disabled-login mastodon
 USER mastodon
 RUN touch /home/mastodon/.bashrc
 SHELL ["/bin/bash", "-lc"]
-ENV PATH="/home/mastodon/.rbenv/bin:/home/mastodon/.rbenv/versions/${RUBY_INSTALL_VERSION}}/bin:$PATH"
+ENV PATH="/home/mastodon/.rbenv/bin:/home/mastodon/.rbenv/versions/${RUBY_INSTALL_VERSION}/bin:$PATH"
 
 # Install rbenv.
 RUN git clone https://github.com/rbenv/rbenv.git /home/mastodon/.rbenv ; \
@@ -74,8 +74,8 @@ RUN git clone https://github.com/rbenv/rbenv.git /home/mastodon/.rbenv ; \
 # Install ruby-build and install Ruby.
 RUN git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build ; \
     cd /home/mastodon/.rbenv ; \
-    RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install ${RUBY_INSTALL_VERSION}} ; \
-    rbenv global ${RUBY_INSTALL_VERSION}} ; \
+    RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install ${RUBY_INSTALL_VERSION} ; \
+    rbenv global ${RUBY_INSTALL_VERSION} ; \
     gem install bundler --no-document
 
 # Set the working directory to '/mastodon' and clone the Mastodon Glitch repository.
