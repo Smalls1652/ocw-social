@@ -35,6 +35,6 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: smallsonlinemstdncontainers.azurecr.io/smallsonline-api:${{ github.ref_name }}_${{ env.current_datetime_ticks }}
-            file: ./Dockerfile.glitchsoc.build
+            tags: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitchsoc:${{ github.ref_name }}_${{ env.current_datetime_ticks }}
+            file: ./Dockerfile.glitch-soc.build
             context: ./
