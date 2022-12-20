@@ -1,0 +1,40 @@
+name: Publish / Mastodon Glitch container image
+
+on:
+  # Allow manual trigger 
+  workflow_dispatch: 
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: 'Checkout: Latest commit'
+          uses: actions/checkout@v3
+          with:
+            submodules: true
+
+        - name: Get current ticks
+          id: get_current_ticks
+          shell: pwsh
+          run: |
+            $currentDateTimeTicks = [System.DateTimeOffset]::Now.UtcTicks
+            "current_datetime_ticks=$($currentDateTimeTicks)" >> $env:GITHUB_ENV
+
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
+
+        - name: Login to container registry
+          uses: docker/login-action@v2
+          with:
+            registry: smallsonlinemstdncontainers.azurecr.io
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+
+        - name: Build and push container image to registry
+          uses: docker/build-push-action@v3
+          with:
+            push: true
+            tags: smallsonlinemstdncontainers.azurecr.io/smallsonline-api:${{ github.ref_name }}_${{ env.current_datetime_ticks }}
+            file: ./Dockerfile.glitchsoc.build
+            context: ./
