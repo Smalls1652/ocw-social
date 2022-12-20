@@ -1,0 +1,165 @@
+version: '3.8'
+name: 'OCW Social'
+services:
+  redis:
+    container_name: ocw-social-redis
+    restart: always
+    image: redis:7-alpine
+    networks:
+      - internal_network
+    volumes:
+      - ./redis:/data
+
+  web:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - MAX_THREADS=5
+      - WEB_CONCURRENCY=1
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
+    networks:
+      - external_network
+      - internal_network
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  streaming:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=5
+      - STREAMING_CLUSTER_NUM=1
+    command: node ./streaming
+    networks:
+      - external_network
+      - internal_network
+    ports:
+      - '4000:4000'
+    depends_on:
+      - redis
+
+  sidekiq-mailers:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=3
+    command: bundle exec sidekiq -q mailers -q scheduler -c 3
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-scheduler:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=3
+    command: bundle exec sidekiq -q scheduler -c 3
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-default-push-pull:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=6
+    command: bundle exec sidekiq -q default -q push -q pull -q ingress -c 6
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-default-pull-push:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=6
+    command: bundle exec sidekiq -q default -q pull -q push -q ingress -c 6
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-pull-default-push:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=6
+    command: bundle exec sidekiq -q pull -q default -q push -q ingress -c 6
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-push-default-pull:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=6
+    command: bundle exec sidekiq -q push -q default -q pull -q ingress -c 6
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+  sidekiq-ingress:
+    build: .
+    image: tootsuite/mastodon:v4.0.2
+    restart: always
+    env_file: .env.production
+    environment:
+      - DB_POOL=2
+    command: bundle exec sidekiq -q ingress -c 2
+    depends_on:
+      - redis
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
