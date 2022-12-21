@@ -1,0 +1,27 @@
+version: '3.8'
+name: 'OCW Social glitch-soc upgrade'
+services:
+  upgrade:
+    build: .
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    restart: always
+    env_file: .env.production
+    environment:
+      - MAX_THREADS=5
+      - WEB_CONCURRENCY=1
+      - SKIP_POST_DEPLOYMENT_MIGRATIONS=true
+    command: bash -c "bundle exec rails db:migrate"
+    networks:
+      - external_network
+      - internal_network
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+    volumes:
+      - ./public/system:/mastodon/public/system
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
