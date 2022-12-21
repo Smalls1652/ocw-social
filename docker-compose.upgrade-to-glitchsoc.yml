@@ -3,8 +3,8 @@ name: 'OCW Social glitch-soc upgrade'
 services:
   upgrade:
     build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
-    restart: always
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
+    restart: no
     env_file: .env.production
     environment:
       - SKIP_POST_DEPLOYMENT_MIGRATIONS=true
