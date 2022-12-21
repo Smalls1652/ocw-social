@@ -2,7 +2,6 @@ version: '3.8'
 name: 'OCW Social glitch-soc upgrade'
 services:
   upgrade:
-    build: .
     image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: "no"
     env_file: .env.production
