@@ -12,7 +12,7 @@ services:
 
   web:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -31,7 +31,7 @@ services:
 
   streaming:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -48,7 +48,7 @@ services:
 
   sidekiq-mailers:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -64,7 +64,7 @@ services:
 
   sidekiq-scheduler:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -80,7 +80,7 @@ services:
 
   sidekiq-default-push-pull:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -96,7 +96,7 @@ services:
 
   sidekiq-default-pull-push:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -112,7 +112,7 @@ services:
 
   sidekiq-pull-default-push:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -128,7 +128,7 @@ services:
 
   sidekiq-push-default-pull:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
@@ -144,7 +144,7 @@ services:
 
   sidekiq-ingress:
     build: .
-    image: tootsuite/mastodon:v4.0.2
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
     restart: always
     env_file: .env.production
     environment:
