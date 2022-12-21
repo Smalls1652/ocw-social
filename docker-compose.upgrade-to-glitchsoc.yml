@@ -7,17 +7,11 @@ services:
     restart: always
     env_file: .env.production
     environment:
-      - MAX_THREADS=5
-      - WEB_CONCURRENCY=1
       - SKIP_POST_DEPLOYMENT_MIGRATIONS=true
     command: bash -c "bundle exec rails db:migrate"
     networks:
       - external_network
       - internal_network
-    ports:
-      - '3000:3000'
-    depends_on:
-      - redis
     volumes:
       - ./public/system:/mastodon/public/system
 
