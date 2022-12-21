@@ -11,8 +11,7 @@ services:
       - ./redis:/data
 
   web:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -30,8 +29,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -47,8 +45,7 @@ services:
       - redis
 
   sidekiq-mailers:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -63,8 +60,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-scheduler:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -79,8 +75,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-default-push-pull:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -95,8 +90,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-default-pull-push:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -111,8 +105,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-pull-default-push:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -127,8 +120,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-push-default-pull:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:
@@ -143,8 +135,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   sidekiq-ingress:
-    build: .
-    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-vanilla:latest
+    image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: always
     env_file: .env.production
     environment:

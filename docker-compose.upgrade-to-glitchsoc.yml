@@ -5,8 +5,6 @@ services:
     image: smallsonlinemstdncontainers.azurecr.io/ocwsocial-glitch-soc:latest
     restart: "no"
     env_file: .env.production
-    environment:
-      - SKIP_POST_DEPLOYMENT_MIGRATIONS=true
     command: bash -c "bundle exec rails db:migrate"
     networks:
       - external_network
