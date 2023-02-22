@@ -1,3 +1,4 @@
 *.env*
 redis/
 public/
+certbot/
