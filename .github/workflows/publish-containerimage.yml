@@ -9,7 +9,7 @@ jobs:
       runs-on: ubuntu-latest
       strategy:
         matrix: 
-          type: [ "glitch-soc", "vanilla" ]
+          type: [ "glitch-soc" ]
 
       steps:
         - name: 'Checkout: Latest commit'
